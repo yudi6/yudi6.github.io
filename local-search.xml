@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>《Network Applications of Bloom Filters：A Survey》笔记</title>
+    <link href="/2021/03/06/%E3%80%8ANetwork%20Applications%20of%20Bloom%20Filters%20A%20Survey%E3%80%8B%E7%AC%94%E8%AE%B0/"/>
+    <url>/2021/03/06/%E3%80%8ANetwork%20Applications%20of%20Bloom%20Filters%20A%20Survey%E3%80%8B%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Bloom-Filter"><a href="#Bloom-Filter" class="headerlink" title="Bloom Filter"></a>Bloom Filter</h1><ul><li><strong>Bloom filter</strong>是一种空间效率高的随机数据结构，采用位数组表示一个集合以提供成员查询。Bllom filter是容许错误判断的，即把不属于这个集合的元素误判断属于这一集合，这样的错误称作false positives。因此Bloom filter不适用于零错误的应用，它通过极低的错误率节省了大量的空间。</li><li><strong>The Bloom filter principle: </strong>Wherever a list or set is used, and space is at a premium, consider using a Bloom filter if the effect of false positives can be mitigated. (当空间消耗昂贵而允许false positives时，考虑使用布隆过滤器。)</li></ul><h2 id="Standard-Bloom-Filters"><a href="#Standard-Bloom-Filters" class="headerlink" title="Standard Bloom Filters"></a>Standard Bloom Filters</h2><ul><li><p>Bllom Filter采用一个$m$位的位数组来表示包含$n$个元素的集合$S={x_1,x_2,\dots,x_n}$，位数组全初始化为$0$。Bllom Filter使用$k$个相互独立的哈希函数，将集合中的每个元素映射到${1,\dots,m}$的范围中。对于集合中的每一个元素$x\in S$，第$i$个$（1\leq i \leq k）$哈希函数映射的位$h_i(x)$被设置为$1$（不进行重复设置）。</p></li><li><p>在判断$y$是否属于集合$S$时，如果所有$h_i(y)$$（1\leq i \leq k）$的位都已经设置为$1$，那么认为$y\in S$，否则$y \notin S$，因此存在将$y$误判为$S$中元素的情况。</p><p><img src="/2021/03/06/%E3%80%8ANetwork%20Applications%20of%20Bloom%20Filters%20A%20Survey%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" alt></p></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>论文笔记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title></title>
     <link href="/2021/03/05/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
     <url>/2021/03/05/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
