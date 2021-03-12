@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -247,9 +247,9 @@
 <li><p>上一节中LBF的公式，LBF实际上将$x$分成了两组。当$s(x)≥τ$时，$x$将被直接识别为集合中的元素，而不需要使用<em>Bloom filter</em>测试。换句话说，它先使用零哈希函数来标识资格。否则，将使用$K$哈希函数测试，则通过$s(x)≥τ$判断从$0$哈希函数到$K$哈希函数的条件。Ada-BF根据$s(x)$将$x$分为$g$个组，对于组$j$，采用$K_j$个哈希函数来判断它的资格。Ada-BF的结构如Figure 1(b)所示。</p>
 <p><img src="/2021/03/08/%E3%80%8AAdaptive%20Learned%20Bloom%20Filter%20(Ada-BF)%20Efficient%20Utilization%20of%20the%20Classifier%20with%20Application%20to%20Real-Time%20Information%20Filtering%20on%20the%20Web%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" srcset="/img/loading.gif" alt></p>
 </li>
-<li><p>Ada-BF将$s(x)$分为$g$组，其中$x\in \text{Group}\ j,s(x)\in[τ<em>{j-1};τ_j)， j = 1,2,···,g$，设$0 = τ_0 &lt; τ_1 &lt;···&lt; τ</em>{g−1} &lt; τ_g = 1$，来自组$j$的关键字使用$K_j$个独立的哈希函数插入到<em>Bloom filter</em>中。对于$j$组，FPR的期望值可表示为</p>
+<li><p>Ada-BF将$s(x)$分为$g$组，其中$x\in \text{Group}\ j$，$s(x)\in[\tau_{j-1};\tau_j), j = 1,2,···,g$，设$0 = τ_0 &lt; τ_1 &lt;···&lt; τ_{g−1} &lt; τ_g = 1$，来自组$j$的关键字使用$K_j$个独立的哈希函数插入到<em>Bloom filter</em>中。对于$j$组，FPR的期望值可表示为</p>
 <script type="math/tex; mode=display">
-\mathbb{E}\left(\mathrm{FPR}_{j}\right)=\left(1-\left(1-\frac{1}{R}\right)^{\sum_{t=1}^{g} n_{t} K_{t}}\right)^{K_{j}}=\alpha^{K_{j}}</script><p>其中$n<em>{t}=\sum</em>{t=1}^{n} I\left(\tau<em>{t-1} \leq s\left(x</em>{i} \mid x<em>{i} \in S\right)&lt;\tau</em>{t}\right)$落在$\text{group}\ t$的关键字数。为了避免比特数组的过载，我们只在键数$n_j$较多的组中增加$K_j$，而在键数$n_j$较少的组中减少$K_j$。很明显，Ada-BF对LBF进行了推广。当Ada-BF只通过将查询分成两组时$K1 = K, K2 = 0， τ_1 = τ$， Ada-BF降为LBF。</p>
+\mathbb{E}\left(\mathrm{FPR}_{j}\right)=\left(1-\left(1-\frac{1}{R}\right)^{\sum_{t=1}^{g} n_{t} K_{t}}\right)^{K_{j}}=\alpha^{K_{j}}</script><p>其中$n_{t}=\sum_{t=1}^{n} I\left(\tau_{t-1} \leq s\left(x_{i} \mid x_{i} \in S\right)&lt;\tau_{t}\right)$落在$\text{group}\ t$的关键字数。为了避免比特数组的过载，我们只在键数$n_j$较多的组中增加$K_j$，而在键数$n_j$较少的组中减少$K_j$。很明显，Ada-BF对LBF进行了推广。当Ada-BF只通过将查询分成两组时$K1 = K, K2 = 0， τ_1 = τ$， Ada-BF降为LBF。</p>
 <p>值得注意的是，随着$s(x)$的增加，$f(s(x)|x\in S)$与$f(s(x)|x\notin S)$的趋势相反(Figure 2)。</p>
 <p><img src="/2021/03/08/%E3%80%8AAdaptive%20Learned%20Bloom%20Filter%20(Ada-BF)%20Efficient%20Utilization%20of%20the%20Classifier%20with%20Application%20to%20Real-Time%20Information%20Filtering%20on%20the%20Web%E3%80%8B%E7%AC%94%E8%AE%B0/fig2.png" srcset="/img/loading.gif" alt></p>
 </li>
@@ -257,13 +257,16 @@
 <h3 id="Simplifying-the-Hyper-Parameters"><a href="#Simplifying-the-Hyper-Parameters" class="headerlink" title="Simplifying the Hyper-Parameters"></a>Simplifying the Hyper-Parameters</h3><ul>
 <li><p>为了实现Ada-BF，需要确定$2g-1$个超参数，包括每组的哈希函数数量$K_j$和分组的评分阈值$τ_j (τ_0 = 0， τ_g = 1)$。使用这些超参数，对于Ada-BF，总体FPR的期望值可以表示为:</p>
 <script type="math/tex; mode=display">
-\mathbb{E}(\mathrm{FPR})=\sum_{j=1}^{g} p_{j} \mathbb{E}\left(\mathrm{FPR}_{j}\right)=\sum_{j=1}^{g} p_{j} \alpha^{K_{j}}</script><p>其中$p<em>{j}=\operatorname{Pr}\left(\tau</em>{j-1} \leq s\left(x<em>{i} \mid x</em>{i} \notin S\right)&lt;\tau<em>{j}\right)$，$<br>p</em>{j}$可以用$\hat{p}<em>{j}=\frac{1}{m} \sum</em>{i=1}^{m} I\left(\tau<em>{j-1} \leq s\left(x</em>{i} \mid x<em>{i} \notin S\right)&lt;\tau</em>{j}\right)=\frac{m<em>{j}}{m}$表示($m$为训练数据中非键的数量，$m_j$为$j$组中非键的数量)。由于$\sum</em>{j=1}^{g} m<em>{j} \alpha^{K</em>{j}}=O\left(\max <em>{j}\left(m</em>{j} \alpha^{K<em>{j}}\right)\right)$，可以考虑使用$m</em>{j} \alpha^{K<em>{j}}$来近似。而$\alpha^{K</em>{j}}$随着$K<em>j$的增大呈指数级下降，为了保持$m_j\alpha^{K</em>{j}}$在不同组中的稳定，我们需要$m_j$随着$K_j$呈指数级增长。此外，由于$f(s(x)|x\notin S)$在大多数情况下随着$s(x)$变小而增大，所以对于较小的$s(x)$， $K_j$也应该变大，当$j$减少时，我们应该线性增加$K_j$，让$m_j$快速指数增长。</p>
+\mathbb{E}(\mathrm{FPR})=\sum_{j=1}^{g} p_{j} \mathbb{E}\left(\mathrm{FPR}_{j}\right)=\sum_{j=1}^{g} p_{j} \alpha^{K_{j}}</script><p>其中$p_{j}=\operatorname{Pr}\left(\tau_{j-1} \leq s\left(x_{i} \mid x_{i} \notin S\right)&lt;\tau_{j}\right)$，$<br>p_{j}$可以用$\hat{p}_{j}=\frac{1}{m} \sum_{i=1}^{m} I\left(\tau_{j-1} \leq s\left(x_{i} \mid x_{i} \notin S\right)&lt;\tau_{j}\right)=\frac{m_{j}}{m}$表示($m$为训练数据中非键的数量，$m_j$为$j$组中非键的数量)。由于$\sum_{j=1}^{g} m_{j} \alpha^{K_{j}}=O\left(\max _{j}\left(m_{j} \alpha^{K_{j}}\right)\right)$，可以考虑使用$m_{j} \alpha^{K_{j}}$来近似。而$\alpha^{K_{j}}$随着$K_j$的增大呈指数级下降，为了保持$m_j\alpha^{K_{j}}$在不同组中的稳定，我们需要$m_j$随着$K_j$呈指数级增长。此外，由于$f(s(x)|x\notin S)$在大多数情况下随着$s(x)$变小而增大，所以对于较小的$s(x)$， $K_j$也应该变大，当$j$减少时，我们应该线性增加$K_j$，让$m_j$快速指数增长。</p>
 </li>
-<li><p>根据以上观点，设置$\frac{p<em>j}{p</em>{j+1}}=c$和$K<em>j-K</em>{j+1}=1$，其中$j=1,2,\cdots,g-1$，因为$s(x|x\notin S)$的真实密度是未知的，用$\hat{\frac{p<em>j}{p</em>{j+1}}}=\frac{m<em>j}{m</em>{j+1}}=c$来估计$\frac{p<em>j}{p</em>{j+1}}$，该策略确保了$\hat{p}<em>j$与$K_j$的指数级增长。现在只有三个超参数，$c,K</em>{min},K<em>{max}(K</em>{max}=K<em>1)$。默认情况下设置$K</em>{min} = K_{g} = 0$，等价于将$g$组中的所有项目标识为键。</p>
+<li><p>根据以上观点，设置$\frac{p_j}{p_{j+1}}=c$和$K_j-K_{j+1}=1$，其中$j=1,2,\cdots,g-1$，因为$s(x|x\notin S)$的真实密度是未知的，用$\hat{\frac{p_j}{p_{j+1}}}=\frac{m_j}{m_{j+1}}=c$来估计$\frac{p_j}{p_{j+1}}$，该策略确保了$\hat{p}_j$与$K_j$的指数级增长。现在只有三个超参数，$c,K_{min},K_{max}(K_{max}=K_1)$。默认情况下设置$K_{min} = K_{g} = 0$，等价于将$g$组中的所有项目标识为键。</p>
 </li>
 </ul>
 <h2 id="My-result"><a href="#My-result" class="headerlink" title="My result"></a>My result</h2><ul>
 <li>|              | url                  |      |<br>| —————— | —————————— | —— |<br>| Bloom_filter | 0.2360244664282669   |      |<br>|              | 0.03316424931626832  |      |<br>| Ada-BF       | 0.018199582926224606 |      |</li>
+</ul>
+<ul>
+<li>$\tau_{p+1}$</li>
 </ul>
 
             </div>
@@ -550,5 +553,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

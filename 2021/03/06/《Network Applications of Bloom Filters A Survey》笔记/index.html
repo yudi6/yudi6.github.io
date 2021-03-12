@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -235,7 +235,7 @@
 <li><strong>The Bloom filter principle:</strong> <em>Wherever a list or set is used, and space is at a premium, consider using a Bloom filter if the effect of false positives can be mitigated.</em> (当空间消耗昂贵而允许false positives时，考虑使用布隆过滤器。)</li>
 </ul>
 <h2 id="Standard-Bloom-Filter"><a href="#Standard-Bloom-Filter" class="headerlink" title="Standard Bloom Filter"></a>Standard Bloom Filter</h2><ul>
-<li><p><em>Bllom Filter</em>采用一个$m$位的位数组来表示包含$n$个元素的集合$S={x_1,x_2,\dots,x_n}$，位数组全初始化为$0$。<em>Bllom Filter</em>使用$k$个相互独立的哈希函数，将集合中的每个元素映射到${1,\dots,m}$的范围中。对于集合中的每一个元素$x\in S$，第$i$个$（1\leq i \leq k）$哈希函数映射的位$h_i(x)$被设置为$1$（不进行重复设置）。</p>
+<li><p><em>Bllom Filter</em>采用一个$m$位的位数组来表示包含$n$个元素的集合$S=\{x_1,x_2,\dots,x_n\}$，位数组全初始化为$0$。<em>Bllom Filter</em>使用$k$个相互独立的哈希函数，将集合中的每个元素映射到$\{1,\dots,m\}$的范围中。对于集合中的每一个元素$x\in S$，第$i$个$（1\leq i \leq k）$哈希函数映射的位$h_i(x)$被设置为$1$（不进行重复设置）。</p>
 </li>
 <li><p>在判断$y$是否属于集合$S$时，如果所有$h_i(y)$$（1\leq i \leq k）$的位都已经设置为$1$，那么认为$y\in S$，否则$y \notin S$，因此存在将$y$误判为$S$中元素的情况。</p>
 <p><img src="/2021/03/06/%E3%80%8ANetwork%20Applications%20of%20Bloom%20Filters%20A%20Survey%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" srcset="/img/loading.gif" alt></p>
@@ -262,7 +262,7 @@ f=\left(1-\mathrm{e}^{-k n / m}\right)^{k}=(1-p)^{k}.</script><p>相比$p’$和
 </li>
 </ul>
 <h3 id="A-Lower-Bound"><a href="#A-Lower-Bound" class="headerlink" title="A Lower Bound"></a>A Lower Bound</h3><ul>
-<li>在不超过一定错误率的情况下，<em>Bloom Filter</em>需要设置足够大的$m$才能表示全集中任意$n$个元素的集合。假设全集中共有$u$个元素，允许的最大错误率为$\epsilon$，假设$X$为全集中任取$n$个元素的集合，$F(X)$是表示$X$的位数组。那么对于集合$X$中任意一个元素$x$，在$s = F(X)$中查询$x$都能得到肯定的结果，即$S$能够接受$x$。而<em>Bloom Filter</em>有错误率（<em>false positive rate</em>），对于一个确定的位数组来说，最多接受$n+\epsilon (u-n)$个元素。而一个确定的位数组可以表示$\left(\begin{array}{c}<br>n+\epsilon(u-n) \<br>n<br>\end{array}\right)$个集合。$m$位的位数组共有$2^m$个不同的组合，全集中共有$\left(\begin{array}{c}<br>u \<br>n<br>\end{array}\right)$个$n$元素的集合，因此要让$m$位的位数组表示所有$n$个元素的集合，有<script type="math/tex; mode=display">
+<li>在不超过一定错误率的情况下，<em>Bloom Filter</em>需要设置足够大的$m$才能表示全集中任意$n$个元素的集合。假设全集中共有$u$个元素，允许的最大错误率为$\epsilon$，假设$X$为全集中任取$n$个元素的集合，$F(X)$是表示$X$的位数组。那么对于集合$X$中任意一个元素$x$，在$s = F(X)$中查询$x$都能得到肯定的结果，即$S$能够接受$x$。而<em>Bloom Filter</em>有错误率（<em>false positive rate</em>），对于一个确定的位数组来说，最多接受$n+\epsilon (u-n)$个元素。而一个确定的位数组可以表示$\left(\begin{array}{c}<br>n+\epsilon(u-n) \\<br>n<br>\end{array}\right)$个集合。$m$位的位数组共有$2^m$个不同的组合，全集中共有$\left(\begin{array}{c}<br>u \\<br>n<br>\end{array}\right)$个$n$元素的集合，因此要让$m$位的位数组表示所有$n$个元素的集合，有<script type="math/tex; mode=display">
 2^{m}\left(\begin{array}{c}
 n+\epsilon(u-n) \\
 n
@@ -300,7 +300,7 @@ m \geq n \frac{\log _{2}(1 / \epsilon)}{\ln 2}=n \log _{2} \mathrm{e} \cdot \log
 +\left(1-\frac{1}{m}\right)^{k\left|S_{1} \cap S_{2}\right|}\left(1-\left(1-\frac{1}{m}\right)^{k\left|S_{1}-\left(S_{1} \cap S_{2}\right)\right|}\right)\left(1-\left(1-\frac{1}{m}\right)^{k\left|S_{2}-\left(S_{1} \cap S_{2}\right)\right|}\right)
 \end{array}</script><p>化简得到两个<em>Bloom filter</em>的期望内积和为</p>
 <script type="math/tex; mode=display">
-m\left(1-\left(1-\frac{1}{m}\right)^{k\left|S_{1}\right|}-\left(1-\frac{1}{m}\right)^{k\left|S_{2}\right|}+\left(1-\frac{1}{m}\right)^{k\left(\left|S_{1}\right|+\left|S_{2}\right|-\left|S_{1} \cap S_{2}\right|\right)}\right) .</script><p>因此，已知$|S<em>1|,|S_2|, k, m，$以及内积的大小，可以用上式计算$|S_1∩S_2|$。如果没有给出$|S_1|,|S_2|$，它们也可以通过计算$S_1$,$S_2$的<em>Bloom filter</em>中的$0$位数来估计，集合$S$的$0$位数在其期望$m(1 - 1/m)^{k|S|}$附近。设$Z_1,Z_2$分别为$S_1,S_2$<em>Bloom filter</em>中$0$的个数，$Z</em>{12}$为内积中$0$的个数，则得到</p>
+m\left(1-\left(1-\frac{1}{m}\right)^{k\left|S_{1}\right|}-\left(1-\frac{1}{m}\right)^{k\left|S_{2}\right|}+\left(1-\frac{1}{m}\right)^{k\left(\left|S_{1}\right|+\left|S_{2}\right|-\left|S_{1} \cap S_{2}\right|\right)}\right) .</script><p>因此，已知$|S_1|,|S_2|, k, m，$以及内积的大小，可以用上式计算$|S_1∩S_2|$。如果没有给出$|S_1|,|S_2|$，它们也可以通过计算$S_1$,$S_2$的<em>Bloom filter</em>中的$0$位数来估计，集合$S$的$0$位数在其期望$m(1 - 1/m)^{k|S|}$附近。设$Z_1,Z_2$分别为$S_1,S_2$<em>Bloom filter</em>中$0$的个数，$Z_{12}$为内积中$0$的个数，则得到</p>
 <script type="math/tex; mode=display">
 \frac{1}{m}\left(1-\frac{1}{m}\right)^{-k\left|S_{1} \cap S_{2}\right|} \approx \frac{Z_{1}+Z_{2}-Z_{12}}{Z_{1} Z_{2}}</script></li>
 </ul>
@@ -620,5 +620,20 @@ j
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
