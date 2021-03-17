@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -328,7 +328,6 @@ j
 <li><p>在实践中，当计数器溢出时，一种解决方法是保持它的最大值。只有当计数器最终降至0而它本应保持非0时，这才会导致更多的<em>false positive rate</em>。如果删除是随机的，则此事件的预期时间相对较大。</p>
 </li>
 </ul>
-<h2 id="Compressed-Bloom-Filters"><a href="#Compressed-Bloom-Filters" class="headerlink" title="Compressed Bloom Filters"></a>Compressed Bloom Filters</h2><p>😀</p>
 
             </div>
             <hr>
@@ -620,5 +619,20 @@ j
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -183,7 +183,6 @@
   
   
   
-  
     
     
     <div class="category row">
@@ -201,7 +200,6 @@
       </a>
       <div class="category-collapse">
         
-          
   <div id="collapse-ckm5q3wsf00026cv011jc3n9h" class="collapse in" role="tabpanel"
        aria-labelledby="heading-ckm5q3wsf00026cv011jc3n9h">
     
@@ -223,9 +221,11 @@
     
   </div>
 
+          
         
       </div>
     </div>
+  
   
 </div>
 
@@ -371,5 +371,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
