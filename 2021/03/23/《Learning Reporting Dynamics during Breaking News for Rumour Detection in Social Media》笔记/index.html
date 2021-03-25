@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  
+    <meta name="description" content="Blog">
+  
+  <meta name="author" content="Yu Zhu">
+  <meta name="keywords" content="">
+  
+  <title>《Learning Reporting Dynamics during Breaking News for Rumour Detection in Social Media》笔记 - Lifetime</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lifetime</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                文章
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="《Learning Reporting Dynamics during Breaking News for Rumour Detection in Social Media》笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-23 09:34" pubdate>
+        2021年3月23日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">《Learning Reporting Dynamics during Breaking News for Rumour Detection in Social Media》笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Rumour-Detection-And-PHEME-Dataset"><a href="#Rumour-Detection-And-PHEME-Dataset" class="headerlink" title="Rumour Detection And PHEME Dataset"></a>Rumour Detection And PHEME Dataset</h1><ul>
+<li>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1610.07363">https://arxiv.org/abs/1610.07363</a></li>
+<li>PHEME 数据集：<a target="_blank" rel="noopener" href="https://figshare.com/articles/PHEME_dataset_of_rumours_and_nonrumours/4010619">https://figshare.com/articles/PHEME_dataset_of_rumours_and_nonrumours/4010619</a></li>
+</ul>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>近年来，利用社交媒体来关注新闻已经变得很普遍。像Twitter这样的知名平台越来越多地被人们用来了解最新的新闻发展，以及被新闻记者用来收集新闻。然而，如恐怖袭击或暴乱的突发新闻在社交媒体上的传播速度不可避免地造成许多在新闻报道的早期阶段发布的信息是未经核实的。</li>
+<li>谣言检测系统用于警告用户文章的未验证状态，告知用户这篇文章以后可能被证明是假的。这可以有助于限制传播虚假信息的传播，从而减少对个人、社区和社会的危害。</li>
+<li>科学文献中关于谣言检测的研究很少，(Zhao et al., 2015)  是其中一篇解决该问题的著作。他们引入了一种寻找<strong>询问推文</strong>的方法，即寻找那些质疑原帖子可信性的推文，以确定原帖子是否是谣言。如果一条推文与手动管理的正则表达式中的一个匹配，那么它就被认为是一个询问推文。这种方法存在局限性：它依赖于人工定期修改正则表达式列表，因为这些正则表达式可能不适用于新的数据集；它假设询问推文出现，但并不是所有的谣言都一定会引发查询，这可能导致低召回率；它没有考虑到相关环境，我们可以利用环境来了解该信息是如何产生的。</li>
+<li>论文定义谣言检测任务的目标为识别<strong>尚未被验证的信息片段</strong>，并从非谣言中区分它们。主要贡献有：<ul>
+<li>描述了一种用于收集和注释Twitter数据集的新方法，该数据集包含各种各样的谣言和非谣言。我们的方法是一种自底向上的方法，通过与突发新闻报道相关的推特时间轴来注释谣言。</li>
+<li>基于<strong>CRF</strong>来学习突发新闻的动态信息，这使我们能够利用上下文学习背景知识以分类谣言信息，这一过程仅根据推文的内容来判断是否是谣言。</li>
+<li>研究了<strong>CRF</strong>作为序列分类器在五个突发新闻的推特数据集上的检测谣言性能，将CRF的性能与其他分类器比较。实验表明，CRF有实质性的改善。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Definition-of-Rumour"><a href="#Definition-of-Rumour" class="headerlink" title="Definition of Rumour"></a>Definition of Rumour</h2><ul>
+<li>谣言的定义：<em>circulating story of questionable veracity, which is apparently credible but hard to verify, and produces sufficient skepticism and/or anxiety so as to motivate finding out the actual truth.</em>  </li>
+</ul>
+<h2 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h2><ul>
+<li><p>论文通过模拟用户跟踪与突发新闻相关的报告的场景来收集数据，其中包括谣言和非谣言。我们的数据收集方法从Twitter流API中收集可能会引发谣言发起与传播的新闻事件相关的tweet，一旦记者告知有新闻价值的事件发生，就跟踪与该事件相关的主要标签和关键字来收集数据，随后记者通过查看关于突发新闻tweet的时间轴，将每条tweet进行注释，标志谣言或非谣言。标注采用的系统如下</p>
+<p><img src="/2021/03/23/%E3%80%8ALearning%20Reporting%20Dynamics%20during%20Breaking%20News%20for%20Rumour%20Detection%20in%20Social%20Media%E3%80%8B%E7%AC%94%E8%AE%B0/fig2.png" srcset="/img/loading.gif" style="zoom:100%;"></p>
+</li>
+<li><p>数据集的五个事件：</p>
+<ul>
+<li><em>Ferguson unrest: citizens of Ferguson in Michigan, USA, protested after the fatal shooting of an 18-year-old African American, Michael Brown, by a white police officer on August 9, 2014.</em></li>
+<li><em>Ottawa shooting: shootings occurred on Ottawas Parliament Hill in Canada, resulting in the death of a Canadian soldier on October 22, 2014.</em></li>
+<li><em>Sydney siege: a gunman held hostage ten customers and eight employees of a Lindt chocolate caf located at Martin Place in Sydney, Australia, on December 15, 2014.</em>  </li>
+<li><em>Charlie Hebdo shooting: two brothers forced their way into the offices of the French satirical weekly newspaper Charlie Hebdo in Paris, killing 11 people and wounding 11 more, on January 7, 2015.</em></li>
+<li><em>Germanwings plane crash: a passenger plane from Barcelona to Dsseldorf crashed in the French Alps on March 24, 2015, killing all passengers and crew. The plane was ultimately found to have been deliberately crashed by the co-pilot of the plane.</em>  </li>
+</ul>
+</li>
+<li><p>考虑到数据集的大小，通过挑选引发大量转发的推文进行采样，转发阈值根据结果数据集的大小选择。对于样本子集中的每一条推文，同样收集所有回复它们的推文，对话收集脚本可在<a target="_blank" rel="noopener" href="https://github.com/azubiaga/phemetwitter-conversation-collection上获得。使用回复推文有两个目的：在人工注释工作，回复推文可以为判断谣言与否提供帮助；而我们需要采用(Zhao">https://github.com/azubiaga/phemetwitter-conversation-collection上获得。使用回复推文有两个目的：在人工注释工作，回复推文可以为判断谣言与否提供帮助；而我们需要采用(Zhao</a> et al., 2015) <strong>询问推文</strong>的方法来作为实验的baseline。</p>
+</li>
+<li><p>各数据集的具体谣言与非谣言数目如Table 1。</p>
+<p><img src="/2021/03/23/%E3%80%8ALearning%20Reporting%20Dynamics%20during%20Breaking%20News%20for%20Rumour%20Detection%20in%20Social%20Media%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" srcset="/img/loading.gif" style="zoom:100%;"></p>
+<p>谣言数目随时间轴的变化（分为10段）如下图，</p>
+<p><img src="/2021/03/23/%E3%80%8ALearning%20Reporting%20Dynamics%20during%20Breaking%20News%20for%20Rumour%20Detection%20in%20Social%20Media%E3%80%8B%E7%AC%94%E8%AE%B0/fig3.png" srcset="/img/loading.gif" style="zoom:100%;"></p>
+<p>可以看到并没有明显的规律性。</p>
+</li>
+</ul>
+<h2 id="Rumour-Detection-Task"><a href="#Rumour-Detection-Task" class="headerlink" title="Rumour Detection Task"></a>Rumour Detection Task</h2><ul>
+<li>该任务以推文的演进时间线$T_L=\{t_1,t_2,\dots,t_{|TL|}\}$作为输入，分类器必须通过分配来自的标签来确定这些tweet ti是谣言还是非谣言</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PHEME-dataset-of-rumours-and-non-rumours/">PHEME dataset of rumours and non-rumours</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/08/%E3%80%8AAdaptive%20Learned%20Bloom%20Filter%20(Ada-BF)%20Efficient%20Utilization%20of%20the%20Classifier%20with%20Application%20to%20Real-Time%20Information%20Filtering%20on%20the%20Web%E3%80%8B%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">《Adaptive Learned Bloom Filter (Ada-BF) Efficient Utilization of the Classifier with Application to Real-Time Information Filtering on the Web》笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                  
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "SDBxwHdwjW48ePKrTvzYDBbA-gzGzoHsz",
+          app_key: "wCxW8S7f8luOgCmjOmDPh0mX",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <i class="iconfont icon-love"></i> <a href="https://996.icu/#/en_US" target="_blank" rel="nofollow noopener"><span>996.icu</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
