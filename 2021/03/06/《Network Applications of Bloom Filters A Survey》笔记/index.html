@@ -231,7 +231,10 @@
             
             <div class="markdown-body">
               <h1 id="Bloom-Filter"><a href="#Bloom-Filter" class="headerlink" title="Bloom Filter"></a>Bloom Filter</h1><ul>
-<li><strong>Bloom filter</strong>是一种空间效率高的随机数据结构，采用位数组表示一个集合以提供成员查询。<em>Bllom filter</em>是容许错误判断的，即把不属于这个集合的元素误判断属于这一集合，这样的错误称作<em>false positives</em>。因此<em>Bloom filter</em>不适用于零错误的应用，它通过极低的错误率节省了大量的空间。</li>
+<li><p>论文：<a target="_blank" rel="noopener" href="https://www.tandfonline.com/doi/abs/10.1080/15427951.2004.10129096">https://www.tandfonline.com/doi/abs/10.1080/15427951.2004.10129096</a></p>
+</li>
+<li><p><strong>Bloom filter</strong>是一种空间效率高的随机数据结构，采用位数组表示一个集合以提供成员查询。<em>Bllom filter</em>是容许错误判断的，即把不属于这个集合的元素误判断属于这一集合，这样的错误称作<em>false positives</em>。因此<em>Bloom filter</em>不适用于零错误的应用，它通过极低的错误率节省了大量的空间。</p>
+</li>
 <li><strong>The Bloom filter principle:</strong> <em>Wherever a list or set is used, and space is at a premium, consider using a Bloom filter if the effect of false positives can be mitigated.</em> (当空间消耗昂贵而允许false positives时，考虑使用布隆过滤器。)</li>
 </ul>
 <h2 id="Standard-Bloom-Filter"><a href="#Standard-Bloom-Filter" class="headerlink" title="Standard Bloom Filter"></a>Standard Bloom Filter</h2><ul>

@@ -230,7 +230,10 @@
             <h1 style="display: none">《Adaptive Learned Bloom Filter (Ada-BF) Efficient Utilization of the Classifier with Application to Real-Time Information Filtering on the Web》笔记</h1>
             
             <div class="markdown-body">
-              <h1 id="Adaptive-Learned-Bloom-Filter"><a href="#Adaptive-Learned-Bloom-Filter" class="headerlink" title="Adaptive Learned Bloom Filter"></a>Adaptive Learned Bloom Filter</h1><h2 id="Learned-Bloom-filter"><a href="#Learned-Bloom-filter" class="headerlink" title="　Learned Bloom filter"></a>　Learned Bloom filter</h2><ul>
+              <h1 id="Adaptive-Learned-Bloom-Filter"><a href="#Adaptive-Learned-Bloom-Filter" class="headerlink" title="Adaptive Learned Bloom Filter"></a>Adaptive Learned Bloom Filter</h1><ul>
+<li>论文：<a target="_blank" rel="noopener" href="https://par.nsf.gov/servlets/purl/10217248">https://par.nsf.gov/servlets/purl/10217248</a></li>
+</ul>
+<h2 id="Learned-Bloom-filter"><a href="#Learned-Bloom-filter" class="headerlink" title="　Learned Bloom filter"></a>　Learned Bloom filter</h2><ul>
 <li><em>Learned Bloom filter</em> (LBF) 在<em>Bloom filter</em>之前增加了机器学习模型作为预过滤器，对于每个查询的元素$x$，给出得分$s(x)$，$s(x)$通常与$x\in S$的概率正相关。分类器先在一些可用的训练数据上进行预训练，根据其训练数据的特征对给定查询$x\in S$进行判断（二分类）。LBF设置阈值$\tau$，当$s(x)\geq \tau$时则判断$x\in S$，否则便使用<em>Bloom filter</em>进行进一步的判断。就像<em>standard Bloom filter</em>，LBF的<em>false negative rate</em>（FNR）为0。而<em>false positive rate</em>（FPR）可以由分类模型与<em>Bloom filter</em>的误报引起。</li>
 <li>可以看出，当区域$s(x)≥τ$包含更多的$x$时，插入<em>Bloom filter</em>的关键字数会减少，从而导致良好的FPR。由于区域$s(x)≥τ$为正值，为了保证预过滤器判断正确，所以$τ$值越高越好，但$\tau$的增大会增加<em>Bloom filter</em>的负载。因此需要找到两者的平衡。</li>
 </ul>
