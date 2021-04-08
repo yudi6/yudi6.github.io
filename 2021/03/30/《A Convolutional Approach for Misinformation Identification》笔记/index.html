@@ -20,7 +20,7 @@
   <meta name="author" content="Yu Zhu">
   <meta name="keywords" content="">
   
-  <title>《Detecting Rumors from Microblogs with Recurrent Neural Networks》笔记 - Lifetime</title>
+  <title>《A Convolutional Approach for Misinformation Identification》笔记 - Lifetime</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="《Detecting Rumors from Microblogs with Recurrent Neural Networks》笔记">
+            <span class="h2" id="subtitle" title="《A Convolutional Approach for Misinformation Identification》笔记">
               
             </span>
 
@@ -175,8 +175,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-29 09:34" pubdate>
-        2021年3月29日 上午
+      <time datetime="2021-03-30 19:43" pubdate>
+        2021年3月30日 晚上
       </time>
     </span>
   
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.4k 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      27
        分钟
     </span>
   
@@ -227,102 +227,84 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">《Detecting Rumors from Microblogs with Recurrent Neural Networks》笔记</h1>
+            <h1 style="display: none">《A Convolutional Approach for Misinformation Identification》笔记</h1>
             
             <div class="markdown-body">
-              <h1 id="Detecting-Rumors-with-Recurrent-Neural-Networks"><a href="#Detecting-Rumors-with-Recurrent-Neural-Networks" class="headerlink" title="Detecting Rumors  with Recurrent Neural Networks"></a>Detecting Rumors  with Recurrent Neural Networks</h1><ul>
-<li>论文：<a target="_blank" rel="noopener" href="https://ink.library.smu.edu.sg/sis_research/4630/">https://ink.library.smu.edu.sg/sis_research/4630/</a></li>
+              <h1 id="A-Convolutional-Approach-for-Misinformation-Identification"><a href="#A-Convolutional-Approach-for-Misinformation-Identification" class="headerlink" title="A Convolutional Approach for Misinformation Identification"></a>A Convolutional Approach for Misinformation Identification</h1><ul>
+<li>论文：<a target="_blank" rel="noopener" href="http://114.215.172.152/research/Classification/A%20convolutional%20approach%20for%20misinformation%20identification.pdf">http://114.215.172.152/research/Classification/A%20convolutional%20approach%20for%20misinformation%20identification.pdf</a></li>
 </ul>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
-<li><p>社会心理学文献将谣言定义为一个真实性未经证实或故意造假的故事或陈述。现有的谣言检测模型使用了学习算法结合了从帖子的内容、用户特征和扩散模式中得到的特征，或者简单地利用正则表达式来发现推文中的谣言。特性工程是至关重要的，但它是非常细致、有偏见和需要人工的。例如，图1中的两个时间序列图描述了中典型谣言信号的浅层模式。虽然它们可以显示谣言事件和非谣言事件的时间特征，但对于特征工程来说，这两种情况之间的差异既不明显也不强烈。</p>
-<p><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" srcset="/img/loading.gif" style="zoom:70%"></p>
+<li><p>GRU-2的缺点：在错误信息输入序列有限的情况下，GRU-2不具备实际早期检测任务的条件。有限的输入序列可能不够长，不足以体现动态时序信号，因此GRU-2在某些情况下不会捕捉到动态时间信号特征；训练后的RNN模型具有一个恒定的递归转移矩阵，并导致序列信号在每两个连续输入之间的传播方式相同，这对于动态和复杂的情况是不够的；GRU-2模型偏向于输入序列的最新元素但关键特征不一定出现在输入序列的后部。</p>
+</li>
+<li><p>CNN的卷积架构和$k$-max pooling操作可以灵活地提取分散在一个输入序列中的关键特征。论文提出了一种用于错误信息识别和早期检测任务的<strong>Convolutional Approach  for Misinformation Identification (CAMI)</strong>模型。首先，我们研究了所采用的数据集中的数据分布(详见第3节)，观察错误信息和真实信息的<strong>长尾分布</strong>。在此基础上，我们提出了适当的方法将每个事件划分为几个阶段，将所有事件分成若干组微博，通过段落向量学习每组的表示。因此，CAMI的输入序列是由事件分成的组。CAMI不仅能自动从输入实例中提取局部-全局的重要特征，而且还能灵活地提取分散在一个输入序列中的关键特征。CAMI模型的可视化实验中获得了一些观察结果，该模型有助于更好地理解人类在网络空间中的行为，并更准确地塑造现实社会媒体场景。</p>
+</li>
+<li><p>主要贡献：</p>
+<ul>
+<li><p>我们使用无监督的段落向量方法学习输入微博帖子的表示，使用有监督的CNN方法自动获取虚假信息和真实信息的关键特征。</p>
+</li>
+<li><p>我们将所提出的模型所捕获的信息可视化，这将帮助我们理解社交媒体上的信息所具有的内在属性。</p>
+</li>
+<li><p>在两个真实世界的数据集上进行的实验表明CAMI在错误信息识别方面明显优于最先进的方法。</p>
 </li>
 </ul>
-<ul>
-<li>RNN适合于谣言检测，这是因为RNN中单元之间的连接循环形成了网络的内部状态，这能够捕捉到谣言扩散的动态特征。利用RNN，我们将事件的社会语境信息建模为一个变长时间序列。我们假设人们在听到谣言时会转发谣言或对其发表评论，从而产生连续不断的帖子。方法在监督下学习谣言帖子的时间和文本特征。在两个真实的微博数据集上进行的大量实验表明，基于RNN的方法具有出色的性能。该模型也被证明对谣言的早期检测是有效的，在谣言最初传播几小时后就可以获得足够的准确性。</li>
-<li>据我们所知，这是首次使用深度学习模型来检测微博上的谣言。基于rnn的模型实现了显著的改进，超过了最先进的学习算法与依赖手工制作的特征。该模型具有更强的可扩展性，通过复杂的循环单元和额外的隐藏层，可以比现有的方法更准确地检测谣言。</li>
-<li>基于RNN的模型与现有的检测相比（如在线谣言揭穿服务）相比允许早期检测，更有效。</li>
-<li>我们为任务构建了两个带有ground truth标签的微博数据集，总共包含超过5000个声明，扩展到500万条相关微博帖子。我们将这个庞大的谣言数据集完全公开，以便用于研究目的。</li>
+</li>
 </ul>
 <h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><ul>
-<li>之前的研究多用手工制作的特征，使用了超过文本之外的内容。</li>
-<li>Zhao等人[2015]利用“not true”、“unconfirmed”或“debunk”等提示词，对质疑和否认推文进行早期的谣言检测。</li>
-</ul>
-<h2 id="RNN-Recurrent-Neural-Network"><a href="#RNN-Recurrent-Neural-Network" class="headerlink" title="RNN: Recurrent Neural Network"></a>RNN: Recurrent Neural Network</h2><ul>
-<li><p>RNN: Recurrent Neural Network  </p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-h_{t} &=\tanh \left(U x_{t}+W h_{t-1}+b\right) \\
-o_{t} &=V h_{t}+c
-\end{aligned}</script></li>
-<li><p>Long Short-Term Memory (LSTM)  </p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-i_{t} &=\sigma\left(x_{t} W_{i}+h_{t-1} U_{i}+c_{t-1} V_{i}\right) \\
-f_{t} &=\sigma\left(x_{t} W_{f}+h_{t-1} U_{f}+c_{t-1} V_{f}\right) \\
-\tilde{c_{t}} &=\tanh \left(x_{t} W_{c}+h_{t-1} U_{c}\right) \\
-c_{t} &=f_{t} c_{t-1}+i_{t} \tilde{c_{t}} \\
-o_{t} &=\sigma\left(x_{t} W_{o}+h_{t-1} U_{o}+c_{t} V_{o}\right) \\
-h_{t} &=o_{t} \tanh \left(c_{t}\right)
-\end{aligned}</script></li>
-<li><p>Gated Recurrent Unit (GRU)  </p>
-<script type="math/tex; mode=display">
-\begin{array}{l}
-z_{t}=\sigma\left(x_{t} U_{z}+h_{t-1} W_{z}\right) \\
-r_{t}=\sigma\left(x_{t} U_{r}+h_{t-1} W_{r}\right) \\
-\tilde{h}_{t}=\tanh \left(x_{t} U_{h}+\left(h_{t-1} \cdot r_{t}\right) W_{h}\right) \\
-h_{t}=\left(1-z_{t}\right) \cdot h_{t-1}+z_{t} \cdot \tilde{h}_{t}
-\end{array}</script></li>
-</ul>
-<h2 id="RNN-based-Rumor-Detection"><a href="#RNN-based-Rumor-Detection" class="headerlink" title="RNN-based Rumor Detection"></a>RNN-based Rumor Detection</h2><ul>
-<li>首先，我们引入一种方法，将输入的微博帖子转换为连续的变长时间序列，然后用不同类型隐藏层单元和层树进行分类。</li>
-<li>我们定义一组给定的事件为$E = \{E_i\}$，其中每个事件$E_i = {(m_{i,j}, t_{i,j})}$由时间戳$t_{i,j}$上的所有相关帖子$m_{i,j}$组成，任务是将每个事件分类为谣言或非谣言。</li>
-</ul>
-<h3 id="Variable-length-Time-Series"><a href="#Variable-length-Time-Series" class="headerlink" title="Variable-length Time Series"></a>Variable-length Time Series</h3><ul>
-<li><p>由于一个热门事件中可能会有成千上万的帖子，而最终只有一个分类的输出单元。反向传播通过大量的时间序列，会导致梯度消失或爆炸。因此将帖子按一定时间间隔处理作为序列中的单个单元，再使用RNN建模。最初，我们将整个时间线平均划分为$N$个间隔($N$是参考长度)。系统尝试通过删除集合$U_0$中的空间隔来发现非空间隔的集合$U’$（即，$U’$中的每个间隔至少具有一条推特）。这些非空间隔中总时间跨度最长的被选入集合$\bar U$。 如果$\bar U$中的间隔数小于$N$，并且间隔数大于上一轮的间隔数，我们将间隔减半并继续进行分区； 否则，它返回由$\bar U$给定的发现的连续间隔。算法如下</p>
-<p><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig2.png" srcset="/img/loading.gif" style="zoom:70%"></p>
+<li><p>之前的研究多用手工制作的特征，使用了超过文本之外的内容。</p>
+</li>
+<li><p>此外，其他一些作品提取了更有效的手工制作特征，包括冲突观点[Jin等人，2016]，时间属性[Kwon等人，2013;Ma等人，2015]，用户反馈[Giudice, 2010;Rieh et al]，并发出包含怀疑的推文[赵等人，2015]。上述基于特征工程的方法都未能覆盖动态复杂社交媒体场景中的潜在特征，未能形成重要特征之间更深层的交互。为了克服这些缺陷，基于RNN的模型试图捕捉错误信息扩散过程中的动态时间信号，并逐步学习事件的时间和文本表示，而不依赖任何手工制作的特征[Ma等人，2016]。</p>
+</li>
+<li><p>CNN由堆叠的卷积层和池化层组成，这些结构有助于建模重要的语义特征，并在各自的领域取得了很大的改进。例如，CNN已成功应用于语音识别、句子语义分析、点击率预测]、图像语义分割和强化学习任务]。CNN通常采用随机梯度下降训练，用反向传播计算梯度。</p>
+</li>
+<li><p>在Twitter数据集中错误信息和真实信息的事件数分别为498和494，在微博数据集中为2313和2351。微博数据集的分布如下。</p>
+<p><img src="/2021/03/30/%E3%80%8AA%20Convolutional%20Approach%20for%20Misinformation%20Identification%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" srcset="/img/loading.gif" style="zoom:70%"></p>
 </li>
 </ul>
-<h3 id="Structures-of-Models"><a href="#Structures-of-Models" class="headerlink" title="Structures of Models"></a>Structures of Models</h3><ul>
-<li><p>根据上节构建的时间序列，RNN的循环单元自然地拟合时间间隔。在每个区间内，我们使用区间内词语的$tf\ast idf$值作为输入。我们根据$tf\ast idf$值保留最前面的$K$项来对词进行删减，因此输入维数为$K$。RNN的结构如图2所示。注意，输出单元与最后的时间步骤相关联，它使用softmax来实现这两个类的概率输出。</p>
-<p><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig3.png" srcset="/img/loading.gif" style="zoom:70%"></p>
+<h2 id="Proposed-CAMI-Model"><a href="#Proposed-CAMI-Model" class="headerlink" title="Proposed CAMI Model"></a>Proposed CAMI Model</h2><ul>
+<li><strong>Problem Definition：</strong>给定一组事件，每个事件包含一系列相关的微博帖子，每个微博帖子都有对应时间戳。这里的任务是在事件级别识别事件是否为误报，即通过分析事件的相关微博帖子序列来检测事件是否为误报。</li>
+</ul>
+<h3 id="Proposed-Model"><a href="#Proposed-Model" class="headerlink" title="Proposed Model"></a>Proposed Model</h3><ul>
+<li><p>所提议的CAMI模型的框架如图所示，一共有3个小模块，以下将自底向上描述各模块。</p>
+<p><img src="/2021/03/30/%E3%80%8AA%20Convolutional%20Approach%20for%20Misinformation%20Identification%E3%80%8B%E7%AC%94%E8%AE%B0/fig2.png" srcset="/img/loading.gif" style="zoom:50%"></p>
 </li>
-<li><p><strong>tanh-RNN</strong>：最基本的结构，其中隐藏的单元不是门控的，以有限的方式捕获跨时间间隔的上下文。设$g_c$为ground-truth，其中$c$表示类标签事件的二维多项式分布。对于每个训练实例(即每个事件)，我们的目标是最小化预测概率分布与真实值之间的平方误差:</p>
+<li><p>由于虚假信息可能是用一种实话实说的方式来描述的，所以很难从一个特定的微博帖子中识别出虚假信息。相对而言，从一个事件的相关微博帖子序列中检测虚假信息是合理的，虚假信息和真实信息的属性对虚假信息的识别起着至关重要的作用，我们需要将事件的所有微博帖子作为一个整体来处理。</p>
+</li>
+<li><p><strong>Splitting all correlative microblog posts of an event into several groups：</strong>通过对微博帖子建模，将一个事件中所有相关的微博帖子集中到一个时间窗序列中以提取整体特征。首先，一个事件平均由数千条相关微博组成，事件之间存在差异。此外，在某些特定的时间窗口内的微博帖子具有很强的相关性，我们可以将这些相邻的微博帖子作为一个组以代表一个特定的事件阶段。</p>
+</li>
+<li><p>所有事件都需要以统一的方式进行分割，这样才能提取出有区别的特征。例如，真实信息往往在一开始就被发布或转载，很快就会消失，而错误信息往往在中间阶段吸引了相对持久的注意力。所以不同的微博帖子在同一时间窗口的信息量可能会有所不同。我们需要尽可能确保事件的一个阶段不被间断，也就是说，那些最相关的微博帖子应属于事件阶段的同一个组中。</p>
+</li>
+<li><p>考虑到所采用的数据集的长尾分布，采用等时间间隔可能会导致各组微博数量不平衡而影响特征学习的效果。最好按时间顺序将所有事件的微博帖子分成等量的组，具体来说，我们收集事件所有相关微博帖子的时间戳，并从每个事件的所有时间戳中减去相应事件的开始时间戳，然后这些时间戳被归一化。最后，整个时间戳按时间顺序平均分成20份，每个时间窗口为</p>
 <script type="math/tex; mode=display">
-\min \sum_{c}\left(g_{c}-p_{c}\right)^{2}+\sum_{i}\left\|\theta_{i}\right\|^{2}</script><p>其中$g_c$和$p_c$分别是目标分布和预测分布，$\theta_i$表示待估计的模型参数，使用L2正则化惩罚。</p>
+T_i = [t_{i−1}, t_i) , i = 1, 2, · · · , 20,</script><p>其中$t_i$是第$i$个时间段的结束时间戳，注意可能存在时间窗口使得该窗口内没有微博。</p>
 </li>
-<li><p><strong>Single-layer LSTM and GRU ：</strong>长距离依赖关系对于捕获事件生命周期中的谣言形式和隐藏特征非常重要。门控单元不仅保留了当前时间步长的内容，而且还注入了前一步的学习到信息。然而，由于门控单元的存在，参数的规模明显增大。例如，GRUs由于引入了复位门和更新门，使得原有的参数空间增加了三倍。为了降低复杂度，我们在输入层和隐藏层之间添加了一个嵌入层(固定长度为100)，使得参数的规模变得更小。不使用预先训练的基于外部集合的向量，而是使用我们的模型自己学习嵌入向量$E$。</p>
-</li>
-<li><p><strong>Multi-layer GRU：</strong>通过添加第二个GRU层来捕捉不同时间步长之间更高层次的特征。考虑到LSTMs更复杂的参数集，我们只将GRU扩展为多个层。</p>
+<li><p><strong>Learning representation for each group via paragraph vector：</strong>我们将一个时间窗口的微博帖子作为一个事件段，用一系列的事件段对整体特征进行建模。为了方便起见，这里使用段落向量[Le and Mikolov, 2014]。一个事件内微博帖子的可以看作是一个段落来学习段落表示$\text g_i$，</p>
+<script type="math/tex; mode=display">
+\underset{\mathbf{D}, \mathbf{W}}{\arg \max } \frac{1}{N} \sum_{n=k}^{N-k} \log p\left(\mathbf{w}_{n} \mid \mathbf{w}_{n-k}, \cdots \mathbf{w}_{n+k}\right)</script><p>通过softmax进行预测，</p>
 <script type="math/tex; mode=display">
 \begin{array}{l}
-x_{e}=x_{t} E \\
-z_{t}^{(1)}=\sigma\left(x_{e} U_{z}^{(1)}+h_{t-1}^{(1)} W_{z}^{(1)}\right) \\
-r_{t}^{(1)}=\sigma\left(x_{e} U_{r}^{(1)}+h_{t-1}^{(1)} W_{r}^{(1)}\right) \\
-\tilde{h}_{t}^{(1)}=\tanh \left(x_{e} U_{h}^{(1)}+\left(h_{t-1}^{(1)} \cdot r_{t}^{(1)}\right) W_{h}^{(1)}\right) \\
-h_{t}^{(1)}=\left(1-z_{t}^{(1)}\right) \cdot h_{t-1}^{(1)}+z_{t}^{(1)} \cdot \tilde{h}_{t}^{(1)} \\
-z_{t}^{(2)}=\sigma\left(h_{t}^{(1)} U_{z}^{(2)}+h_{t-1}^{(2)} W_{z}^{(2)}\right) \\
-r_{t}^{(2)}=\sigma\left(h_{t}^{(1)} U_{r}^{(2)}+h_{t-1}^{(2)} W_{r}^{(2)}\right) \\
-\tilde{h}_{t}^{(2)}=\tanh \left(h_{t}^{(1)} U_{h}^{(2)}+\left(h_{t-1}^{(2)} \cdot r_{t}^{(2)}\right) W_{h}^{(2)}\right) \\
-h_{t}^{(2)}=\left(1-z_{t}^{(2)}\right) \cdot h_{t-1}^{(2)}+z_{t}^{(2)} \cdot \tilde{h}_{t}^{(2)}
-\end{array}</script></li>
-<li><p><strong>Model Training：</strong>通过利用损失的反向传播对所有参数的导数来训练所有RNN模型，使用AdaGrad算法进行参数更新。词汇大小$K$设为5000，嵌入向量大小设为100，隐藏单元大小设为100，学习率设为0.5。</p>
+p\left(\mathbf{w}_{n} \mid \mathbf{w}_{n-k}, \cdots \mathbf{w}_{n+k}\right)=\frac{\exp \left(\boldsymbol{\theta}^{T} \mathbf{x}_{n}\right)}{\Sigma_{i} \exp \left(\boldsymbol{\theta}^{T} \mathbf{x}_{i}\right)} \\
+\mathbf{x}_{n}=h\left(\mathbf{g}_{j}, \mathbf{w}_{n-k}, \cdots, \mathbf{w}_{n+k} ; \mathbf{D}, \mathbf{W}\right)
+\end{array}</script><p>给定一个有$N$个单词的段落，一个单词用在$\mathbf{W}$中的列向量$\mathbf{w}_n$来表示，段落用在$\mathbf{D}$中的列向量$\text{g}_j$来表示，而且$θ$是softmax参数，$h$是拼接或平均运算。上下文单词和段落记忆用于预测当前单词。</p>
+</li>
+<li><p><strong>Modeling high-level interactions by CNN：</strong>CNN常用的架构包括卷积层、$k$-max池化层和全连接层。对于一个$n$阶段的事件实例$e_i$，每个阶段采用$\text{g}_j\in\mathbb{R}^d$做嵌入。我们可以得到实例矩阵$\mathbf{G}\in \mathbb{R}^{d\times n}$，在卷积神经网络，卷积层是通过权重矩阵$\mathbf{C}\in\mathbb{R}^{d\times\omega}$的卷积运算得到的，对卷积结果应用非线性函数，得到特征映射的一个元素为：</p>
+<script type="math/tex; mode=display">
+\mathbf{f}[i]=\tanh \left(\langle\mathbf{G}[:, i: i+\omega-1], \mathbf{C}\rangle_{F}\right)</script><p>其中$\mathbf{G}[:, i: i+\omega-1]$表示$\mathbf{G}$的第$i$到$i+w-1$行，$F$表示<strong>Frobenius inner product</strong>。最后,我们采用$k$-max池化特性映射$\mathbf{f}$捕捉最重要的特性$f_{max}^k$。</p>
+</li>
+<li><p>此外，可以重复上面的卷积和池化操作。最后通过softmax获得最终输出$p_{e_i}$。其中$p_{e_i}$为预测事件$e_i$是否属于误报的概率。</p>
 </li>
 </ul>
-<h2 id="Experiments-and-Results"><a href="#Experiments-and-Results" class="headerlink" title="Experiments and Results"></a>Experiments and Results</h2><ul>
-<li><p>使用的数据集信息如下</p>
-<p><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig4.png" srcset="/img/loading.gif" style="zoom:70%"></p>
-</li>
-<li><p>实验结果</p>
-<table><tr>
-<td><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig5.png" srcset="/img/loading.gif" border="0"></td>
-<td><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig6.png" srcset="/img/loading.gif" border="0"></td>
-</tr></table>
-
-<p><img src="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/fig7.png" srcset="/img/loading.gif"></p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><ul>
+<li><p>实验相关设置见原论文，结果如下，</p>
+<p><img src="/2021/03/30/%E3%80%8AA%20Convolutional%20Approach%20for%20Misinformation%20Identification%E3%80%8B%E7%AC%94%E8%AE%B0/fig3.png" srcset="/img/loading.gif" style="zoom:100%"></p>
+<p>关于早期检测的结果如下。</p>
+<p><img src="/2021/03/30/%E3%80%8AA%20Convolutional%20Approach%20for%20Misinformation%20Identification%E3%80%8B%E7%AC%94%E8%AE%B0/fig4.png" srcset="/img/loading.gif" style="zoom:100%"></p>
 </li>
 </ul>
-
+<script type="math/tex; mode=display">
+\begin{array}{c}
+F_{E}[x, y]=\min _{B K P}\left\{\left[\sum_{k=1}^{n_{s}} \sum_{j=0}^{y-1} \operatorname{error}\left(x_{E, s_{k}}\left[b_{j}, b_{j+1}\right]\right)\right]+\left[\sum_{k=1}^{n_{s}} \operatorname{error}\left(x_{E, s_{k}}\left[b_{y}, b_{y+1}\right]\right)\right]\right\} \\
+=\min _{b_{y}}\left\{F\left[b_{y}, y-1\right]+\left[\sum_{k=1}^{n_{s}} \operatorname{error}\left(x_{E, s_{k}}\left[b_{y}, b_{y+1}\right]\right)\right]\right\}
+\end{array}</script>
             </div>
             <hr>
             <div>
@@ -356,18 +338,12 @@ h_{t}^{(2)}=\left(1-z_{t}^{(2)}\right) \cdot h_{t-1}^{(2)}+z_{t}^{(2)} \cdot \ti
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/30/%E3%80%8AA%20Convolutional%20Approach%20for%20Misinformation%20Identification%E3%80%8B%E7%AC%94%E8%AE%B0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《A Convolutional Approach for Misinformation Identification》笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/25/%E3%80%8AAll-in-one%20Multi-task%20Learning%20for%20Rumour%20Verification%E3%80%8B%E7%AC%94%E8%AE%B0/">
-                        <span class="hidden-mobile">《All-in-one ： Multi-task Learning for Rumour Verification》笔记</span>
+                      <a href="/2021/03/29/%E3%80%8ADetecting%20Rumors%20from%20Microblogs%20with%20Recurrent%20Neural%20Networks%E3%80%8B%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">《Detecting Rumors from Microblogs with Recurrent Neural Networks》笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
