@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  
+    <meta name="description" content="Blog">
+  
+  <meta name="author" content="Yu Zhu">
+  <meta name="keywords" content="">
+  
+  <title>《Modeling Transferable Topics for Cross-Target Stance Detection》笔记 - Lifetime</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Lifetime</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                文章
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="《Modeling Transferable Topics for Cross-Target Stance Detection》笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-21 21:47" pubdate>
+        2021年4月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">《Modeling Transferable Topics for Cross-Target Stance Detection》笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Modeling-Transferable-Topics-for-Cross-Target-Stance-Detection"><a href="#Modeling-Transferable-Topics-for-Cross-Target-Stance-Detection" class="headerlink" title="Modeling Transferable Topics for Cross-Target Stance Detection"></a>Modeling Transferable Topics for Cross-Target Stance Detection</h1><ul>
+<li>论文：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1145/3331184.3331367">https://dl.acm.org/doi/abs/10.1145/3331184.3331367</a></li>
+</ul>
+<h2 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h2><ul>
+<li><p>定向的立场检测方法主要在目标内进行，即使用同一目标的数据对模型进行训练和测试。当我们面对一个新的目标时，我们已经标记了与现有目标有关的数据，但是很少或没有用于新目标的已标记数据。因此，缺乏新目标的标记训练数据限制了特定目标模型的构建。</p>
+</li>
+<li><p>本课题推动了交叉目标立场检测的研究，利用相关的源目标标记数据来构建新目标模型，先前的两个研究已经解决了跨目标立场检测问题。Augenstein等人整合了目标的语义表示来学习文本表示，Xu等人的进一步利用自注意力机制来关注重点词。然而，他们在训练过程中不考虑任何来自最终目标的信息，因此模型更多地学习到源目标的基于目标特征。此外，他们只利用最终目标来学习文本表示，并没有明确地建立两个目标之间可迁移知识的模型，因此跨目标适应能力相当有限。</p>
+</li>
+<li><p>跨目标立场检测任务的关键研究挑战是对可转移知识的有效建模，以促进跨目标的适应。用户经常讨论目标的一些从属话题，通过对这些话题的表达可以推断出他们对目标的立场。此外，两个目标之间的共同主题可以作为可转移的知识来利用，以帮助模型实现跨目标。表1为一个示例。虽然两个文本属于不同的对象，但它们都表达了对主题的态度。论文将这些主题知识整合到立场检测模型中，以提高其跨目标适应能力。</p>
+<p><img src="/2021/04/21/%E3%80%8AModeling%20Transferable%20Topics%20for%20Cross-Target%20Stance%20Detection%E3%80%8B%E7%AC%94%E8%AE%B0/fig1.png" srcset="/img/loading.gif" style="zoom:100%;"></p>
+</li>
+</ul>
+<ul>
+<li><p>论文提出了一种跨目标立场检测方法，将主题知识获取和文本表示学习整合到一个统一的端到端框架中。为了有效获取可转移的主题知识并通过反向传播进行训练，论文采用神经变分推理，利用源目标和最终目标的未标记数据产生潜在的主题，并利用获得的主题知识增强文本表示。论文的工作贡献如下：</p>
+<ul>
+<li>利用可转移的主题知识进行跨目标的模型适应，并提出了一种有效的跨目标立场检测方法。</li>
+<li>我们的方法利用来自源目标和最终目标的数据获取主题知识，并在端到端框架中学习表示。</li>
+<li>实验结果表明，该方法在跨目标立场检测方面优于目前最先进的方法。</li>
+</ul>
+</li>
+</ul>
+<h2 id="PROBLEM-STATEMENT"><a href="#PROBLEM-STATEMENT" class="headerlink" title="PROBLEM STATEMENT"></a>PROBLEM STATEMENT</h2><ul>
+<li>源目标一组已标记的文本数据集$\mathcal{D}_s^l=\{(x_s^{(i)},y_s^{(i)})\}_{i=1}^{N_s}$，其中$x_s$是一个句子，$y_s$是立场标签。最终目标的一组未标记的文本数据集$\mathcal{D}_d=\{x_d^{(i)}\}_{i=1}^{N_d}$，还拥有来自两个目标的大量未标记文本(称为外部数据)$\mathcal{D}_e=\{x_e^{(i)}\}_{i=1}^{N_e}$。其中$x_e$属于源目标或最终目标。通常，$N_e\gg N_s\approx N_d$。跨目标立场检测任务是预测$\mathcal{D}_d$中文本的立场标签。</li>
+</ul>
+<h2 id="PROPOSED-METHOD"><a href="#PROPOSED-METHOD" class="headerlink" title="PROPOSED METHOD"></a>PROPOSED METHOD</h2><ul>
+<li><p>论文提出了<strong>Variational Transfer Network(VTN)</strong>结构用于跨目标立场检测。如图1，它由两个部分组成。第一部分是主题知识获取模块，其目的是利用来自两个目标的大量未标记数据$\mathcal{D}_e$来获取可转移的主题知识。第二部分是一个带有识别器的主题增强记忆网络，它将主题知识存储在记忆中，并使用$\mathcal{D}_s^l$和$\mathcal{D}_d$来学习目标不变表示$h’$与进行立场预测。</p>
+<p><img src="/2021/04/21/%E3%80%8AModeling%20Transferable%20Topics%20for%20Cross-Target%20Stance%20Detection%E3%80%8B%E7%AC%94%E8%AE%B0/fig2.png" srcset="/img/loading.gif" style="zoom:100%;"></p>
+</li>
+</ul>
+<h3 id="Topic-Knowledge-Acquisition-with-Neural-Variational-Inference"><a href="#Topic-Knowledge-Acquisition-with-Neural-Variational-Inference" class="headerlink" title="Topic Knowledge Acquisition with Neural Variational Inference"></a>Topic Knowledge Acquisition with Neural Variational Inference</h3><ul>
+<li><p>获取可转移的知识是该方法的核心功能，论文采用主题建模方式产生潜在的主题来获取知识，以实现有效的跨目标适应。</p>
+</li>
+<li><p><strong><em>Topic modeling based on variational autoencoder</em></strong>：用$K$表示主题建模过程中主题的数量。对于每个主题$k \ (k = 1,2，…，K)$，引入一个待学习的参数向量作为主题嵌入$t_k∈\mathbb{R}^d$，主题知识$T$由这些主题嵌入$T = \{t_1,t_2，…, t_K\}$，给定词嵌入矩阵$E∈\mathbb{R}^{V ×d}$，其中$V$为词汇数量，可以通过计算主题与词的语义相似度，得到每个主题$k$的词分布$ϕ_k∈\mathbb{R}^V$:</p>
+<script type="math/tex; mode=display">
+\phi_{k}=\text{Softmax}\left(\mathrm{E} t_{k}\right), \quad k=1,2, \ldots, K</script><p>在我们的框架中，为了通过反向传播训练主题建模过程，我们采用了<strong><em>neural variational inference</em></strong>，通过变分自编码器(VAE)实现了LDA风格的主题建模。</p>
+<p>设$\boldsymbol{x}∈\mathbb{Z}^{V}_+$表示文本$x∈D_e$的词袋表示。基于VAE，每个长度为$N$个单词的文本$x$的生成过程为:</p>
+<ul>
+<li><p>根据先验分布(standard Gaussian)确定一个潜在变量$z∈\mathbb{R}^K$：$z∼N(0, 1)$</p>
+</li>
+<li><p>得到主题分布$θ = Softmax(\mathbf{W}z)∈\mathbb{R}^K$，其中$W$是一个可学习的矩阵。</p>
+</li>
+<li><p>对于位置$n(n = 1,2，…， N)$的每个单词，得到$w_n∼\boldsymbol{\phi}^⊤θ$。</p>
+<p>这里，得到单词$w_n$的概率是由以下公式计算:</p>
+<script type="math/tex; mode=display">
+p\left(w_{n} \mid \boldsymbol{\theta}, \boldsymbol{\phi}\right)=\sum_{k=1}^{K} p(k \mid \boldsymbol{\theta}) \cdot p\left(w_{n} \mid \boldsymbol{\phi}_{k}\right)=\left[\boldsymbol{\theta}^{\top} \boldsymbol{\phi}\right]_{w_{n}}</script><p>因此我们有$w_n∼\boldsymbol{\phi}^⊤θ$，且$\boldsymbol{\phi}^⊤θ\in\mathbb{R}^V$。</p>
+</li>
+</ul>
+<p>由于$z$的后验推断是难以处理的，VAE引入一个变分分布$q(z\ |\ \boldsymbol{x})$来近似真实的后验。$q(z\ |\ \boldsymbol{x})$是一个对角线高斯函数:$q(z\ |\ \boldsymbol{x}) = N(z;\mu，σ^2I)$，$\mu，σ^2$由多层感知器(MLP)参数化：$\mu= MLP_\mu(\boldsymbol{x})， log(σ^2) = MLP_σ (\boldsymbol{x})$。</p>
+</li>
+<li><p><strong><em>objective function</em></strong>：在训练过程中，基于VAE的主题模型以最大化变分下界为目标:</p>
+<script type="math/tex; mode=display">
+  \operatorname{ELBO}(\boldsymbol{x})=\underset{\boldsymbol{z} \sim q(\boldsymbol{z} \mid \boldsymbol{x})}{\mathbb{E}}\left[\boldsymbol{x}^{\top} \log \left(\boldsymbol{\phi}^{\top} \boldsymbol{\theta}\right)\right]-\mathbb{D}_{\mathrm{KL}}[q(z \mid \boldsymbol{x}) \| p(z)]</script><p>  第一项是重建输入$\boldsymbol{x}$，第二项KL散度项作为正则化项，将变后验与先验相匹配。因此，<strong>NVI</strong>网络的目标函数为:T</p>
+<script type="math/tex; mode=display">
+  \min _{\left\{\mathrm{T}, \mathrm{W}, \mathrm{MLP}_{\mu}, \mathrm{MLP}_{\sigma}\right\}} \mathcal{L}_{\mathrm{NVI}}=-\sum_{x \in \mathcal{D}_{e}} \operatorname{ELBO}(\boldsymbol{x})</script></li>
+</ul>
+<h3 id="Knowledge-Transfer-with-Topic-Memory"><a href="#Knowledge-Transfer-with-Topic-Memory" class="headerlink" title="Knowledge Transfer with Topic Memory"></a>Knowledge Transfer with Topic Memory</h3><ul>
+<li><p>为了充分利用该网络实现目标间的知识转移，论文将主题知识存储在外部记忆中，并采用多跳记忆网络学习文本表示和预测立场。</p>
+</li>
+<li><p><strong><em>Building topic memory</em></strong>：传统记忆网络包含一个输入记忆$M_{in}$和一个输出记忆$M_{out}$。论文采用了简化版本，在网络中只包含一个内存矩阵$M$，即$M = M_{in} = M_{out}$。使用$T$初始化外部记忆，即$M = T$，并在训练过程中进一步更新记忆。</p>
+</li>
+<li><p><strong><em>Topic-enhanced text representation learning</em></strong>:形式上，主题内存$M$有$K$个槽$\{m_1,m_2，…，m_K\}$，每个槽位$m_k$保存着对应主题$k$的信息。</p>
+<p>从$\mathcal{D}_s^l$选择一个句子，使用一个双向LSTM对其进行编码，选择最后一个时间的两个方向上的隐状态来获取它的向量表示$h$，然后采用注意力机制获取重要的内存插槽(即主题)，生成增强的文本表示$h’$:</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\alpha_{k}=\text{Softmax}\left(\boldsymbol{m}_{k}^{\top} \mathbf{W}_{1} \boldsymbol{h}\right), \quad \boldsymbol{o}=\sum_{k=1}^{K} \alpha_{k} \boldsymbol{m}_{k} \\
+\boldsymbol{h}^{\prime}=\mathbf{W}_{2} \boldsymbol{h}+\boldsymbol{o}
+\end{array}</script><p>其中$α_k$为句子与主题$k$的匹配分数，$h$为访问内存的查询向量。主题记忆产生的输出向量$o$对主题知识进行编码，矩阵$\mathbf{W}_1$和$\mathbf{W}_2$是需要学习的参数。</p>
+<p>如果采用单跳存储网络，$h ‘$将是用于预测立场的最终表示。进一步将其扩展为多跳样式，利用前一跳产生的$h ‘$作为后一跳的查询向量。</p>
+</li>
+<li><p><strong><em>Stance predictor</em></strong>：采用一个带有softmax函数的MLP作为立场预测器，输出预测的立场分布$\hat{y}= softmax (MlP_{SP}(h’))$。通过最小化源目标数据$D_sl$上的交叉熵损失来训练内存网络:</p>
+<script type="math/tex; mode=display">
+\min _{\Theta_{\mathrm{M}}} \mathcal{L}_{\mathrm{SP}}=\sum_{x \in \mathcal{D}_{s}^{l}} \text { CROSS-ENTROPY }(\hat{y}, y)</script></li>
+</ul>
+<h3 id="Target-Invariant-Representation-Learning-with-Target-Discriminator"><a href="#Target-Invariant-Representation-Learning-with-Target-Discriminator" class="headerlink" title="Target-Invariant Representation Learning with Target Discriminator"></a>Target-Invariant Representation Learning with Target Discriminator</h3><ul>
+<li><p>为了进一步使文本表示更具<em>target-invariant</em>，便于跨目标的模型适应，引入了一个目标识别器来对输入文本的目标标签进行分类，即判断文本属于源目标还是最终目标，实现方法为MLP(记为$MLP_{TD}$)。如果识别器不能预测文本的目标标签，那么它的表示是<em>target-invariant</em>的。引入目标识别器的另一个好处是，可以利用目标目标中的未标记数据来训练主题记忆。</p>
+</li>
+<li><p>具体来说，给定一个来自$\mathcal{D}_s^l$或$\mathcal{D}_d$的句子，其表示$h ‘$的目的是混淆目标分类器，使目标分类在$\mathcal{D}_s^l∪\mathcal{D}_d$上的交叉熵损失$\mathcal{L}_{TD}$最大化，而分类器本身的目的是使LTD最小化。因此，带有识别器的记忆网络的训练过程是一个对抗性的训练过程，具有如下的极大极小博弈</p>
+<script type="math/tex; mode=display">
+\min _{\Theta_{\mathrm{M}}} \max _{\mathrm{MLPTD}} \mathcal{L}_{\mathrm{SP}}-\lambda \mathcal{L}_{\mathrm{TD}}</script><p>其中$λ$为权衡参数。我们通过反向传播中的梯度反转操作来实现这个过程，这是一种在基于迁移学习模型中广泛使用的技术。</p>
+</li>
+</ul>
+<h3 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h3><ul>
+<li>采用端到端的培训方式来优化VTN。它由两部分组成：NVI网络训练以及使用$\mathcal{D}_s^l∪\mathcal{D}_d$训练的带有识别器的记忆网络(MN-D)。具体来说，我们迭代训练两部分：首先训练两个epoch的NVI，并使用训练的主题嵌入初始化记忆的MN-D，进一步训练两个epoch的MN-D。然后利用MN-D训练的主题记忆更新主题嵌入，再训练两个epoch的NVI。上述过程迭代直到收敛。？</li>
+</ul>
+<h2 id="EXPERIMENTS"><a href="#EXPERIMENTS" class="headerlink" title="EXPERIMENTS"></a>EXPERIMENTS</h2><ul>
+<li><p>实验相关设置见原论文，结果如下</p>
+<p><img src="/2021/04/21/%E3%80%8AModeling%20Transferable%20Topics%20for%20Cross-Target%20Stance%20Detection%E3%80%8B%E7%AC%94%E8%AE%B0/fig3.png" srcset="/img/loading.gif" style="zoom:70%;"></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>查看这篇的论文的原因是基于我们的微博数据集缺少立场标签，若采用其他有立场标签数据所构建的立场分类器对我们的微博数据集进行立场检测，需要考虑立场分类器的跨目标学习能力，即立场分类器是否仍然适用于新任务。与情感分类不同，不同的立场分类在面对不同目标时侧重点不同，而在谣言检测中，目标是起源推文（微博），谣言之间的目标往往不具有相关性。</li>
+<li>论文通过挖掘不同目标文本内相同的主题存在的联系以实现立场分类任务的跨目标学习，但该方法要求源目标与最终目标存在相关性，如文中实验中的<em>Feminist Movement</em> (FM)与<em>Legalization of Abortion</em> (LA), <em>Hillary Clinton</em>(HC)与<em>Donald Trump</em>(DT)。可以看到这两个实验具有比较高的相关性，这是我们在weibo或推特数据集上没有的，因此该迁移方法并不是简单适用于我们的立场检测。</li>
+<li>论文提供了使用主题模型指导立场检测任务的思路，而且采用的对抗性训练过程使分类器表现出了<em>target-invariant</em>，这是我们的立场检测所需要的。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Stance-Detection/">Stance Detection</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Topic-Model/">Topic Model</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/30/%E3%80%8AA%20Convolutional%20Approach%20for%20Misinformation%20Identification%E3%80%8B%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">《A Convolutional Approach for Misinformation Identification》笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                  
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "SDBxwHdwjW48ePKrTvzYDBbA-gzGzoHsz",
+          app_key: "wCxW8S7f8luOgCmjOmDPh0mX",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <i class="iconfont icon-love"></i> <a href="https://996.icu/#/en_US" target="_blank" rel="nofollow noopener"><span>996.icu</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
